@@ -40,7 +40,7 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
 .start-copy, .briefing-card { position: relative; z-index: 1; }
 .eyebrow { margin: 0 0 9px; color: var(--race-red); }.start-copy .eyebrow { color: var(--ink-soft); }
 .start-copy h1, .gameover-screen h1, .leaderboard-heading h1 { max-width: 690px; margin: 0 0 22px; font-family: var(--display); font-size: clamp(4.7rem, 10vw, 8rem); font-style: italic; font-weight: 900; letter-spacing: -.045em; line-height: .78; text-transform: uppercase; }
-.start-copy h1 { max-width: none; margin-bottom: 28px; font-size: clamp(3.6rem, 6.5vw, 4.8rem); line-height: .88; white-space: nowrap; }
+.start-copy h1 { max-width: none; margin-bottom: 12px; font-size: clamp(3.6rem, 6.5vw, 5.4rem); line-height: .88; white-space: nowrap; }
 .start-copy h1 em { color: var(--race-red); font-style: inherit; }.intro { max-width: 510px; margin: 0 0 30px; color: #c2c2c7; font-size: 1.04rem; line-height: 1.55; }
 .button { position: relative; min-height: 50px; padding: 13px 20px; border: 1px solid transparent; border-radius: 0; font-family: var(--body); font-size: .88rem; font-weight: 900; letter-spacing: .02em; text-transform: uppercase; transition: background .15s ease, color .15s ease, transform .15s ease; }.button:hover { transform: translateY(-2px); }
 .button-primary { color: #fff; background: var(--race-red); box-shadow: 5px 5px 0 #000; }.button-primary:hover { background: var(--race-red-dark); }.button-secondary { color: #fff; border-color: #fff; background: var(--panel); }.button-secondary:hover { color: var(--ink); background: #fff; }
