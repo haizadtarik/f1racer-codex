@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102238" />
+    <meta name="description" content="F1Racer — a quick reflex racing game." />
+    <title>F1Racer — Race control</title>
+    <link rel="stylesheet" href="styles.css?v=4" />
+  </head>
+  <body>
+    <main class="app-shell" id="app">
+      <header class="brandbar" aria-label="F1Racer race control">
+        <div class="utility-bar">
+          <a class="brand" href="#start" aria-label="F1Racer home">
+            <span class="brand-mark" aria-hidden="true">F1</span>
+            <span>Racer</span>
+          </a>
+          <div class="utility-data" aria-label="Session information">
+            <span>Race day 01</span>
+            <span>Local session</span>
+          </div>
+        </div>
+      </header>
+
+      <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
+
+      <section class="screen start-screen" id="start-screen" aria-labelledby="start-title">
+        <div class="start-copy">
+          <p class="eyebrow">One car · zero excuses</p>
+          <h1 id="start-title">Find the gap.<br /><em>Stay alive.</em></h1>
+          <p class="intro">Thread your car through incoming traffic. The longer you hold your line, the higher the score.</p>
+          <button class="button button-primary" id="start-button" type="button">Start race <span aria-hidden="true">→</span></button>
+        </div>
+
+        <aside class="briefing-card" aria-label="Race briefing">
+          <div class="briefing-topline"><span>Live briefing</span><i aria-hidden="true"></i></div>
+          <dl class="race-facts">
+            <div><dt>Track</dt><dd>Three lanes</dd></div>
+            <div><dt>Controls</dt><dd>← → / A D · Head tracking</dd></div>
+            <div><dt>Objective</dt><dd>Keep moving</dd></div>
+          </dl>
+          <div class="best-card"><span>Local best</span><strong id="best-score">—</strong><small>points</small></div>
+        </aside>
+
+        <button class="text-link leaderboard-link" id="open-leaderboard" type="button">View local leaderboard <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <section class="screen race-screen" id="race-screen" aria-labelledby="race-title" hidden>
+        <div class="race-hud">
+          <div><p class="eyebrow">Live score</p><strong id="score-value">0</strong><span> points</span></div>
+          <h1 id="race-title" class="visually-hidden" tabindex="-1">Race in progress</h1>
+          <span class="race-status"><i aria-hidden="true"></i> Racing</span>
+          <section class="head-steering-panel" aria-labelledby="head-steering-title">
+            <div>
+              <p class="eyebrow">Optional control</p>
+              <h2 id="head-steering-title">Head steering</h2>
+              <p id="head-steering-status" role="status">Camera stays on this device.</p>
+            </div>
+            <video id="head-steering-preview" aria-label="Mirrored camera preview for head steering" autoplay muted playsinline hidden></video>
+            <div class="head-steering-actions">
+              <button class="button button-primary" id="enable-head-steering" type="button">Enable head steering</button>
+              <button class="button button-secondary" id="calibrate-head-steering" type="button" disabled hidden>Calibrate centre</button>
+              <button class="button button-secondary" id="stop-head-steering" type="button" disabled>Stop camera</button>
+            </div>
+          </section>
+        </div>
+        <div class="track-zone">
+          <div class="steering-controls" aria-label="Steering controls">
+            <button class="steer-button" id="move-left" type="button" aria-label="Move left"><span aria-hidden="true">←</span><small>Left</small></button>
+            <button class="steer-button" id="move-right" type="button" aria-label="Move right"><span aria-hidden="true">→</span><small>Right</small></button>
+          </div>
+          <div class="track-frame">
+            <canvas id="race-canvas" aria-label="F1 racing track. Use left and right controls to avoid oncoming cars."></canvas>
+            <div class="track-caption" aria-hidden="true"><span>01</span> LAP IN PROGRESS</div>
+          </div>
+        </div>
+        <p class="keyboard-tip">Use <kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd> to steer.</p>
+      </section>
+
+      <section class="screen gameover-screen" id="gameover-screen" aria-labelledby="gameover-title" hidden>
+        <p class="eyebrow">Race complete</p>
+        <h1 id="gameover-title" tabindex="-1">The gap closed.</h1>
+        <div class="final-score"><span>Final score</span><strong id="final-score">0</strong><small>points</small></div>
+        <div class="registration-panel">
+          <h2>Put it on the board</h2>
+          <p>Save this score on this device.</p>
+          <form id="score-form" novalidate>
+            <label for="player-name">Driver name</label>
+            <div class="name-row">
+              <input id="player-name" name="player-name" type="text" autocomplete="name" maxlength="24" required placeholder="e.g. Hana" />
+              <button class="button button-primary" id="save-score-button" type="submit">Save score</button>
+            </div>
+          </form>
+        </div>
+        <div class="action-row">
+          <button class="button button-secondary" id="retry-button" type="button">Race again</button>
+          <button class="text-link leaderboard-link" id="open-leaderboard-after-race" type="button">Leaderboard <span aria-hidden="true">↗</span></button>
+        </div>
+      </section>
+
+      <section class="screen leaderboard-screen" id="leaderboard-screen" aria-labelledby="leaderboard-title" hidden>
+        <div class="leaderboard-heading">
+          <div><p class="eyebrow">Local records</p><h1 id="leaderboard-title" tabindex="-1">Leaderboard</h1></div>
+          <span class="session-tag">This device</span>
+        </div>
+        <ol class="leaderboard-list" id="leaderboard-list" aria-live="polite"></ol>
+        <button class="button button-secondary" id="back-to-start" type="button">Back to start</button>
+      </section>
+    </main>
+
+    <script type="module" src="js/game.js?v=5"></script>
+  </body>
+</html>
